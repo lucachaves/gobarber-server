@@ -1,4 +1,3 @@
-import { uuid } from 'uuidv4';
 import {
   Entity,
   Column,
@@ -9,7 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import User from './Users';
+import User from '@modules/users/infra/typeorm/entities/Users';
 
 @Entity('appointments')
 class Appointment {
