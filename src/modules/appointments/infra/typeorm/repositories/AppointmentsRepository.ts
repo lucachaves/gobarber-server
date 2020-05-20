@@ -19,7 +19,7 @@ class AppointmentsRepository implements IAppointmentsService {
     return findAppointment || undefined;
   }
 
-  public async crate({
+  public async create({
     provider_id,
     date,
   }: ICreateAppointmentDTO): Promise<Appointment> {
