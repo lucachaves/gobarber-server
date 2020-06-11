@@ -4,7 +4,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
 import IMailProvider from '@shared/container/providers/MailProvider/implementations/IMailProvider';
 import AppError from '@shared/errors/AppError';
-import IUserTokensRepository from '../repositories/IUserTokenRepository';
+import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
 interface IRequest {
   email: string;
