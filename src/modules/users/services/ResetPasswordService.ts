@@ -1,10 +1,10 @@
 import { injectable, inject } from 'tsyringe';
+import { addHours, isAfter } from 'date-fns';
 
 import IUsersRepository from '../repositories/IUsersRepository';
-import User from '../infra/typeorm/entities/User';
-import IMailProvider from '@shared/container/providers/MailProvider/implementations/IMailProvider';
 import AppError from '@shared/errors/AppError';
 import IUserTokensRepository from '../repositories/IUserTokenRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
   token: string;
@@ -18,6 +18,8 @@ class SendForgotPasswordEmailService {
     private usersRepository: IUsersRepository,
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokensRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ token, password }: IRequest): Promise<void> {
@@ -33,7 +35,14 @@ class SendForgotPasswordEmailService {
       throw new AppError('User does not exists');
     }
 
-    user.password = password;
+    const tokenCreatedAt = userToken.created_at;
+    const compareDate = addHours(tokenCreatedAt, 2);
+
+    if (isAfter(Date.now(), compareDate)) {
+      throw new AppError('Token expired');
+    }
+
+    user.password = await this.hashProvider.generateHash(password);
 
     await this.usersRepository.save(user);
   }
