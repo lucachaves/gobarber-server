@@ -6,8 +6,8 @@ import UpdateProfileService from './UpdateProfileService';
 
 let fakeUsersProvider: FakeUsersProvider;
 let fakeHashProvider: FakeHashProvider;
-
 let updateProfile: UpdateProfileService;
+
 describe('UpdateProfile', () => {
   beforeEach(() => {
     fakeUsersProvider = new FakeUsersProvider();
@@ -34,6 +34,16 @@ describe('UpdateProfile', () => {
 
     expect(updatedUser.name).toBe('Doe John');
     expect(updatedUser.email).toBe('doejohn@example.com');
+  });
+
+  it('should not be able to update the profile from non-existing user', async () => {
+    await expect(
+      updateProfile.execute({
+        user_id: 'non-existing-user-id',
+        name: 'Test',
+        email: 'test@example.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to change to another user email', async () => {
