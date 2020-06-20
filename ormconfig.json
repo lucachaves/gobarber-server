@@ -22,9 +22,9 @@
     "type": "mongodb",
     "host": "localhost",
     "port": 27017,
-    "username": "root",
-    "password": "secret",
     "database": "gostack_gobarber",
+    "username": "docker",
+    "password": "docker",
     "useUnifiedTopology": true,
     "entities": [
       "./src/modules/**/infra/typeorm/schemas/*.ts"
