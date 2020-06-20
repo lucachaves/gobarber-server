@@ -21,7 +21,7 @@ export default class AddUserIdToAppointments1592596945251
       'appointments',
       new TableForeignKey({
         name: 'AppointmentUser',
-        columnNames: ['provider_id'],
+        columnNames: ['user_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',
