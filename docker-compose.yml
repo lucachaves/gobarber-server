@@ -38,15 +38,23 @@ services:
     ports:
       - 27017:27017
 
-  mongo-express:
-    container_name: mongo-express
-    image: mongo-express:0.54
+  # mongo-express:
+  #   container_name: mongo-express
+  #   image: mongo-express:0.54
+  #   restart: always
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - 8081:8081
+
+  redis:
+    container_name: redis
+    image: redis:6.0-alpine
     restart: always
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
-    depends_on:
-      - mongo
     ports:
-      - 8081:8081
+      - 6379:6379
+
 
